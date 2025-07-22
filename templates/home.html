@@ -1,0 +1,52 @@
+{% extends "base.html" %} 
+{% block title %}FlaskyNotes{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="notes-header fade-in-up">
+        <i class="fa fa-sticky-note-o"></i>
+        <h1>Your Notes</h1>
+    </div>
+
+    <!-- Notes List -->
+    <div class="notes-container">
+        {% if user.notes %}
+            {% for note in user.notes %}
+            <div class="note-item fade-in-up">
+                <div class="note-content">{{ note.data }}</div>
+                <button type="button" class="note-delete" onclick="deleteNote('{{ note.id }}')" title="Delete note">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state fade-in-up">
+                <i class="fa fa-lightbulb-o"></i>
+                <h3>No notes yet!</h3>
+                <p>Start by creating your first note below.</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Add Note Form -->
+    <div class="note-form fade-in-up">
+        <form method="POST">
+            <div class="form-group">
+                <label for="note" class="form-label">
+                    <i class="fa fa-pencil"></i> Add a new note
+                </label>
+                <textarea 
+                    name="note" 
+                    id="note" 
+                    class="form-control" 
+                    placeholder="Write your note here..."
+                    required
+                ></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-plus"></i> Add Note
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
